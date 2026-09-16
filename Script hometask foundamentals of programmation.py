@@ -908,6 +908,9 @@ print("\033[93m" + '=' * 120 + "\033[0m")
 print("PROBLEMA 8 - EVALUACIÓN DE PROVEEDORES")
 print("\033[93m" + '=' * 120 + "\033[0m")
 
+#Para el punto 8 se consultaron otras fuentes para poder obtener orientación de su solución y se utilizó "def" para poder llevar 
+#a cabo el ejercicio aunque no se ha visto dicho concepto en las sesiones presenciales.
+#Se crean las funciones necesarias para crear las clasificaciones de clientes, la escala de puntos, clasificación de proveedor.
 def puntos_puntualidad(porcentaje):
 
     if porcentaje >= 95:
@@ -1005,7 +1008,7 @@ def clasificar_proveedor(puntaje, meses, rechazo, incidentes):
 
     return categoria
 
-
+#Se crean las listas de proveedores con cada índice
 proveedores = [
     ["P1", 95, 98, 1, 0, 30],
     ["P2", 94.9, 90, 2, 1, 18],
@@ -1015,6 +1018,7 @@ proveedores = [
     ["P6", 96, 99, 1, 3, 36]
 ]
 
+#Se crean los contadores para realizar la acumulación de los resultados solicitados:
 conteo_estrategico = 0
 conteo_confiable = 0
 conteo_observacion = 0
@@ -1026,6 +1030,7 @@ menor_puntaje = 100
 
 cantidad_proveedores = 0
 
+#Se invoca la función for para crear temporalmente las variables por cada índice 
 for proveedor in proveedores:
 
     nombre = proveedor[0]
