@@ -1,16 +1,19 @@
-Encabezado ={ 
-    "Nombre_taller" : "Desarrollo taller Fundamentos de programación - Taller de entrenamiento de programación y razonamiento lógico",
-    "Integrantes" : """
-                    """
 
-    """
-    Ayda Johanna Bermudez Leon 
-    Luis Eduardo Reyes Fernández
-    Katherinne Stella Castaneda Rodriguez""",
-    "Docente" : "Ivan Dario Rico Arias",
+Encabezado = {
+    "Nombre_taller": "Desarrollo taller Fundamentos de programación - Taller de entrenamiento de programación y razonamiento lógico",
+
+    "Integrantes": """
+Ayda Johanna Bermudez Leon
+Luis Eduardo Reyes Fernández
+Katherinne Stella Castaneda Rodriguez
+""",
+
+    "Docente": "Ivan Dario Rico Arias",
+
     "Universidad": "Konrad Lorenz - Especialización en analítica de datos e IA",
-    "Fecha" : "2024-09-16",
-    }
+
+    "Fecha": "2026-09-16"
+} 
 
 print("\033[93m" + '=' * 120 + "\033[0m")
 print("\033[1m" + Encabezado["Nombre_taller"] + "\033[0m")  
@@ -36,13 +39,13 @@ print()
 #Devuelve: Un diccionario de listas y "alimenta" todos los calculos de las funciones posteriores.
 
 pedidos_1 = {
-    "Clientes": [
-        "Laura",
-        "Carlos",
-        "Distribuciones ABC",
-        "Andrea",
-        "Comercial XYZ"
-    ],
+   "Clientes": [
+    "Laura",
+    "Carlos",
+    "Distribuciones ABC",
+    "Andrea",
+    "Comercial XYZ"
+],
 
     "Tipo": [
         "Regular",
@@ -640,6 +643,10 @@ print("\033[93m" + '=' * 120 + "\033[0m")
 print("PROBLEMA 6 - CONSOLIDACIÓN DE VENTAS")
 print("\033[93m" + '=' * 120 + "\033[0m")
 
+# Creamos la lista con las ventas sugeridas en el ejercicio.
+# Cada registro contiene:
+# producto, categoría, unidades, precio y porcentaje de descuento.
+
 ventas_6 = [
     ["A", "Tecnología", 8, 120000, 0],
     ["B", "Tecnología", 2, 900000, 10],
@@ -649,15 +656,25 @@ ventas_6 = [
     ["D", "Accesorios", 0, 50000, 0]
 ]
 
+# Creamos contadores para controlar las ventas recibidas,
+# las ventas válidas y las ventas inválidas.
+
 ventas_recibidas = 0
 ventas_validas = 0
 ventas_invalidas = 0
+
+# Creamos acumuladores para calcular los valores globales.
 
 total_bruto = 0
 total_descuento = 0
 total_neto = 0
 
+# Creamos un diccionario vacío para consolidar la información
+# de cada producto. Los productos se incorporan cuando aparecen.
+
 productos = {}
+
+# Recorremos cada venta de la lista.
 
 for venta in ventas_6:
 
@@ -669,6 +686,9 @@ for venta in ventas_6:
 
     ventas_recibidas = ventas_recibidas + 1
 
+    # Una venta es inválida si las unidades son menores o iguales a cero,
+    # el precio es menor o igual a cero o el descuento está fuera de 0 a 40.
+
     if unidades <= 0 or precio <= 0 or descuento < 0 or descuento > 40:
 
         ventas_invalidas = ventas_invalidas + 1
@@ -677,13 +697,19 @@ for venta in ventas_6:
 
         ventas_validas = ventas_validas + 1
 
+        # Calculamos valor bruto, descuento y valor neto.
+
         bruto = unidades * precio
         valor_descuento = bruto * descuento / 100
         neto = bruto - valor_descuento
 
+        # Acumulamos los valores globales.
+
         total_bruto = total_bruto + bruto
         total_descuento = total_descuento + valor_descuento
         total_neto = total_neto + neto
+
+        # Si el producto aparece por primera vez lo agregamos al diccionario.
 
         if producto not in productos:
 
@@ -696,9 +722,15 @@ for venta in ventas_6:
 
         else:
 
+            # Si el producto ya existe acumulamos unidades,
+            # ingreso neto y número de operaciones.
+
             productos[producto]["Unidades"] = productos[producto]["Unidades"] + unidades
             productos[producto]["Ingreso"] = productos[producto]["Ingreso"] + neto
             productos[producto]["Operaciones"] = productos[producto]["Operaciones"] + 1
+
+
+# Mostramos los resultados generales.
 
 print()
 print("Ventas recibidas:", ventas_recibidas)
@@ -711,13 +743,20 @@ print("Ingreso neto:", total_neto)
 print()
 print("CONSOLIDADO POR PRODUCTO")
 
+# Variables para determinar el producto con más unidades
+# y el producto con mayor ingreso.
+
 producto_mas_unidades = ""
 mayor_unidades = 0
 
 producto_mayor_ingreso = ""
 mayor_ingreso = 0
 
+# Acumulador para verificar el ingreso consolidado.
+
 ingreso_consolidado = 0
+
+# Recorremos el diccionario de productos.
 
 for producto in productos:
 
@@ -734,15 +773,22 @@ for producto in productos:
     print("Ingreso neto:", ingreso)
     print("Operaciones:", operaciones)
 
+    # Identificamos el producto con mayor número de unidades.
+
     if unidades > mayor_unidades:
 
         mayor_unidades = unidades
         producto_mas_unidades = producto
 
+    # Identificamos el producto con mayor ingreso.
+
     if ingreso > mayor_ingreso:
 
         mayor_ingreso = ingreso
         producto_mayor_ingreso = producto
+
+    # Calculamos la participación de cada producto
+    # dentro del ingreso neto total.
 
     if total_neto > 0:
 
@@ -754,6 +800,7 @@ for producto in productos:
 
     print("Participación en ingreso:", participacion, "%")
 
+
 print()
 print("Producto con más unidades:", producto_mas_unidades)
 print("Producto con mayor ingreso:", producto_mayor_ingreso)
@@ -761,18 +808,30 @@ print("Producto con mayor ingreso:", producto_mayor_ingreso)
 print("Ingreso global:", total_neto)
 print("Ingreso consolidado:", ingreso_consolidado)
 
+# Verificamos que el ingreso neto consolidado por producto
+# sea igual al ingreso neto global.
+
 if total_neto == ingreso_consolidado:
+
     print("VERIFICACIÓN CORRECTA")
+
 else:
+
     print("VERIFICACIÓN INCORRECTA")
+
 
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
 print()
 print("\033[93m" + '=' * 120 + "\033[0m")
-print("PROBLEMA 7 - GESTIÓN DE PEDIDOS")
+print("PROBLEMA 7 - GESTIÓN DE PEDIDOS Y NIVEL DE CUMPLIMIENTO")
 print("\033[93m" + '=' * 120 + "\033[0m")
+
+# Creamos la lista con los pedidos sugeridos.
+# Cada registro contiene:
+# cliente, unidades solicitadas, unidades entregadas,
+# días prometidos, días reales y estado del pago.
 
 pedidos_7 = [
     ["C1", 10, 10, 3, 3, "Pagado"],
@@ -783,17 +842,31 @@ pedidos_7 = [
     ["C3", 4, 4, 2, 2, "Pendiente"]
 ]
 
+# Acumuladores de unidades solicitadas y entregadas.
+
 solicitadas_total = 0
 entregadas_total = 0
+
+# Contadores para cada categoría.
 
 cumplidos = 0
 parciales = 0
 incumplidos = 0
 
+# Acumuladores para calcular los retrasos.
+
 dias_retraso_total = 0
 pedidos_tardios = 0
 
+# Diccionario para generar el resumen por cliente.
+
 clientes = {}
+
+# Lista para guardar los clientes con al menos un incumplimiento.
+
+clientes_incumplidos = []
+
+# Recorremos cada pedido.
 
 for pedido in pedidos_7:
 
@@ -804,25 +877,57 @@ for pedido in pedidos_7:
     reales = pedido[4]
     pago = pedido[5]
 
+    # Acumulamos las unidades solicitadas y entregadas.
+
     solicitadas_total = solicitadas_total + solicitadas
     entregadas_total = entregadas_total + entregadas
 
-    porcentaje_entregado = entregadas * 100 / solicitadas
+    # Calculamos el porcentaje entregado.
+    # La validación evita una división entre cero.
+
+    if solicitadas > 0:
+
+        porcentaje_entregado = entregadas * 100 / solicitadas
+
+    else:
+
+        porcentaje_entregado = 0
+
+    # Primero se determina si el pedido es Incumplido.
+    # Es incumplido cuando no se entregan unidades,
+    # el pago es Rechazado o se entregan más unidades
+    # de las solicitadas.
 
     if entregadas == 0 or pago == "Rechazado" or entregadas > solicitadas:
 
         categoria = "Incumplido"
         incumplidos = incumplidos + 1
 
+        # Guardamos una sola vez al cliente que tenga incumplimientos.
+
+        if cliente not in clientes_incumplidos:
+
+            clientes_incumplidos.append(cliente)
+
+    # Si no fue incumplido, se considera Cumplido
+    # cuando se entrega el 100 %, dentro del plazo
+    # y el pago se encuentra Pagado.
+
     elif entregadas == solicitadas and reales <= prometidos and pago == "Pagado":
 
         categoria = "Cumplido"
         cumplidos = cumplidos + 1
 
+    # Los demás pedidos procesables se clasifican
+    # como Cumplimiento parcial.
+
     else:
 
         categoria = "Cumplimiento parcial"
         parciales = parciales + 1
+
+    # Calculamos el retraso cuando los días reales
+    # son superiores a los prometidos.
 
     if reales > prometidos:
 
@@ -834,11 +939,16 @@ for pedido in pedidos_7:
 
         retraso = 0
 
+    # Mostramos el resultado individual del pedido.
+
     print()
     print("Cliente:", cliente)
     print("Porcentaje entregado:", porcentaje_entregado, "%")
     print("Categoría:", categoria)
     print("Días de retraso:", retraso)
+
+    # Si el cliente aparece por primera vez,
+    # creamos su registro dentro del diccionario.
 
     if cliente not in clientes:
 
@@ -853,6 +963,9 @@ for pedido in pedidos_7:
 
         clientes[cliente]["Pedidos"] = clientes[cliente]["Pedidos"] + 1
 
+    # Actualizamos la categoría del pedido
+    # dentro del resumen del cliente.
+
     if categoria == "Cumplido":
 
         clientes[cliente]["Cumplidos"] = clientes[cliente]["Cumplidos"] + 1
@@ -865,6 +978,9 @@ for pedido in pedidos_7:
 
         clientes[cliente]["Incumplidos"] = clientes[cliente]["Incumplidos"] + 1
 
+
+# Mostramos los indicadores generales.
+
 print()
 print("Pedidos totales:", len(pedidos_7))
 print("Cumplidos:", cumplidos)
@@ -874,9 +990,22 @@ print("Incumplidos:", incumplidos)
 print("Unidades solicitadas:", solicitadas_total)
 print("Unidades entregadas:", entregadas_total)
 
-porcentaje_global = entregadas_total * 100 / solicitadas_total
+# Decisión de diseño:
+# El porcentaje global de cumplimiento se calcula dividiendo
+# las unidades entregadas entre las unidades solicitadas.
+
+if solicitadas_total > 0:
+
+    porcentaje_global = entregadas_total * 100 / solicitadas_total
+
+else:
+
+    porcentaje_global = 0
 
 print("Porcentaje global de cumplimiento:", porcentaje_global, "%")
+
+# El promedio de retraso considera únicamente
+# los pedidos que presentaron retraso.
 
 if pedidos_tardios > 0:
 
@@ -887,6 +1016,9 @@ else:
     promedio_retraso = 0
 
 print("Promedio de días de retraso:", promedio_retraso)
+print("Clientes con incumplimientos:", clientes_incumplidos)
+
+# Mostramos el resumen por cliente.
 
 print()
 print("RESUMEN POR CLIENTE")
@@ -900,6 +1032,7 @@ for cliente in clientes:
     print("Parciales:", clientes[cliente]["Parciales"])
     print("Incumplidos:", clientes[cliente]["Incumplidos"])
 
+
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
@@ -908,89 +1041,130 @@ print("\033[93m" + '=' * 120 + "\033[0m")
 print("PROBLEMA 8 - EVALUACIÓN DE PROVEEDORES")
 print("\033[93m" + '=' * 120 + "\033[0m")
 
+
+# Función para asignar el puntaje correspondiente
+# al porcentaje de entregas a tiempo.
+# Recibe: porcentaje de puntualidad del proveedor.
+# Devuelve: 30, 20, 10 o 0 puntos.
+
 #Para el punto 8 se consultaron otras fuentes para poder obtener orientación de su solución y se utilizó "def" para poder llevar 
 #a cabo el ejercicio aunque no se ha visto dicho concepto en las sesiones presenciales.
 #Se crean las funciones necesarias para crear las clasificaciones de clientes, la escala de puntos, clasificación de proveedor.
 def puntos_puntualidad(porcentaje):
 
     if porcentaje >= 95:
+
         puntos = 30
 
     elif porcentaje >= 85:
+
         puntos = 20
 
     elif porcentaje >= 70:
+
         puntos = 10
 
     else:
+
         puntos = 0
 
     return puntos
 
+
+# Función para asignar el puntaje correspondiente
+# al porcentaje de pedidos completos.
+# Recibe: porcentaje de pedidos completos.
+# Devuelve: 30, 20, 10 o 0 puntos.
 
 def puntos_completos(porcentaje):
 
     if porcentaje >= 98:
+
         puntos = 30
 
     elif porcentaje >= 90:
+
         puntos = 20
 
     elif porcentaje >= 80:
+
         puntos = 10
 
     else:
+
         puntos = 0
 
     return puntos
 
+
+# Función para evaluar el porcentaje de productos rechazados.
+# Recibe: porcentaje de productos rechazados.
+# Devuelve: 30, 20, 10 o 0 puntos.
 
 def puntos_rechazos(porcentaje):
 
     if porcentaje <= 1:
+
         puntos = 30
 
     elif porcentaje <= 3:
+
         puntos = 20
 
     elif porcentaje <= 5:
+
         puntos = 10
 
     else:
+
         puntos = 0
 
     return puntos
 
+
+# Función para asignar puntos según la cantidad de incidentes.
+# Recibe: número de incidentes del proveedor.
+# Devuelve: 10, 5 o 0 puntos.
 
 def puntos_incidentes(incidentes):
 
     if incidentes == 0:
+
         puntos = 10
 
     elif incidentes == 1:
+
         puntos = 5
 
     else:
+
         puntos = 0
 
     return puntos
 
 
+# Función para calcular el puntaje total.
+# Recibe: los cuatro puntajes obtenidos en los criterios.
+# Devuelve: la suma de los cuatro puntajes.
+
+def calcular_puntaje_total(p1, p2, p3, p4):
+
+    puntaje_total = p1 + p2 + p3 + p4
+
+    return puntaje_total
+
+
+# Función para determinar la categoría final del proveedor.
+# Recibe: puntaje total, meses de antigüedad,
+# porcentaje de rechazo y cantidad de incidentes.
+# Devuelve: Estratégico, Confiable,
+# En observación o Crítico.
+
 def clasificar_proveedor(puntaje, meses, rechazo, incidentes):
 
-    if rechazo > 8:
+    # Primero obtenemos la categoría general de acuerdo con el puntaje.
 
-        categoria = "Crítico"
-
-    elif incidentes >= 3:
-
-        categoria = "En observación"
-
-    elif meses < 6 and puntaje >= 90:
-
-        categoria = "Confiable"
-
-    elif puntaje >= 90:
+    if puntaje >= 90:
 
         categoria = "Estratégico"
 
@@ -1006,9 +1180,33 @@ def clasificar_proveedor(puntaje, meses, rechazo, incidentes):
 
         categoria = "Crítico"
 
+    # Luego aplicamos las restricciones obligatorias.
+    # Un proveedor con menos de 6 meses no puede quedar Estratégico.
+
+    if meses < 6 and categoria == "Estratégico":
+
+        categoria = "Confiable"
+
+    # Un porcentaje de rechazos superior al 8 %
+    # obliga a clasificar al proveedor como Crítico.
+
+    if rechazo > 8:
+
+        categoria = "Crítico"
+
+    # Con 3 o más incidentes el proveedor no puede quedar
+    # por encima de En observación.
+    # Si ya era Crítico, se mantiene como Crítico.
+
+    if incidentes >= 3:
+
+        if categoria == "Estratégico" or categoria == "Confiable":
+
+            categoria = "En observación"
+
     return categoria
 
-#Se crean las listas de proveedores con cada índice
+
 proveedores = [
     ["P1", 95, 98, 1, 0, 30],
     ["P2", 94.9, 90, 2, 1, 18],
@@ -1018,17 +1216,25 @@ proveedores = [
     ["P6", 96, 99, 1, 3, 36]
 ]
 
+# Contadores por categoría.
+
 #Se crean los contadores para realizar la acumulación de los resultados solicitados:
 conteo_estrategico = 0
 conteo_confiable = 0
 conteo_observacion = 0
 conteo_critico = 0
 
+# Acumuladores utilizados para calcular
+# máximo, mínimo, promedio y porcentajes.
+
 total_puntajes = 0
 mayor_puntaje = 0
 menor_puntaje = 100
 
 cantidad_proveedores = 0
+
+# Recorremos cada proveedor para calcular los cuatro puntajes,
+# obtener el puntaje total y determinar su categoría.
 
 #Se invoca la función for para crear temporalmente las variables por cada índice 
 for proveedor in proveedores:
@@ -1040,12 +1246,18 @@ for proveedor in proveedores:
     incidentes = proveedor[4]
     meses = proveedor[5]
 
+    # Invocamos las funciones de cada criterio.
+
     p1 = puntos_puntualidad(puntualidad)
     p2 = puntos_completos(completo)
     p3 = puntos_rechazos(rechazo)
     p4 = puntos_incidentes(incidentes)
 
-    puntaje = p1 + p2 + p3 + p4
+    # Calculamos el puntaje total mediante una función.
+
+    puntaje = calcular_puntaje_total(p1, p2, p3, p4)
+
+    # Determinamos la categoría final mediante una función.
 
     categoria = clasificar_proveedor(
         puntaje,
@@ -1054,26 +1266,40 @@ for proveedor in proveedores:
         incidentes
     )
 
+    # Acumulamos puntajes y cantidad de proveedores.
+
     total_puntajes = total_puntajes + puntaje
     cantidad_proveedores = cantidad_proveedores + 1
 
+    # Identificamos puntaje máximo y mínimo.
+
     if puntaje > mayor_puntaje:
+
         mayor_puntaje = puntaje
 
     if puntaje < menor_puntaje:
+
         menor_puntaje = puntaje
 
+    # Contamos proveedores por categoría.
+
     if categoria == "Estratégico":
+
         conteo_estrategico = conteo_estrategico + 1
 
     elif categoria == "Confiable":
+
         conteo_confiable = conteo_confiable + 1
 
     elif categoria == "En observación":
+
         conteo_observacion = conteo_observacion + 1
 
     else:
+
         conteo_critico = conteo_critico + 1
+
+    # Mostramos el resultado individual de cada proveedor.
 
     print()
     print("Proveedor:", nombre)
@@ -1084,13 +1310,27 @@ for proveedor in proveedores:
     print("Puntaje total:", puntaje)
     print("Categoría:", categoria)
 
-promedio_puntaje = total_puntajes / cantidad_proveedores
 
-porcentaje_critico_observacion = (
-    (conteo_critico + conteo_observacion)
-    * 100
-    / cantidad_proveedores
-)
+# Calculamos promedio y porcentaje de proveedores
+# clasificados como Crítico o En observación.
+
+if cantidad_proveedores > 0:
+
+    promedio_puntaje = total_puntajes / cantidad_proveedores
+
+    porcentaje_critico_observacion = (
+        (conteo_critico + conteo_observacion)
+        * 100
+        / cantidad_proveedores
+    )
+
+else:
+
+    promedio_puntaje = 0
+    porcentaje_critico_observacion = 0
+
+
+# Mostramos los resultados generales.
 
 print()
 print("Máximo:", mayor_puntaje)
@@ -1108,14 +1348,19 @@ print(
     "%"
 )
 
-#---------------------------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------------------------
 
+#---------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------
 print()
 print("\033[93m" + '=' * 120 + "\033[0m")
-print("PROBLEMA 9 - SISTEMA INTEGRADO")
+print("PROBLEMA 9 - SISTEMA INTEGRADO DE ANÁLISIS DE OPERACIONES")
 print("\033[93m" + '=' * 120 + "\033[0m")
+
+# Creamos la lista con las operaciones sugeridas.
+# Cada registro contiene:
+# código, cliente, producto, unidades, precio,
+# descuento, estado, días reales y días prometidos.
 
 operaciones = [
     ["P01", "C1", "A", 5, 100000, 0, "Entregado", 2, 3],
@@ -1131,27 +1376,41 @@ operaciones = [
 ]
 
 
+# Función para validar si una operación puede procesarse.
+# Recibe: unidades, precio, descuento, estado y días prometidos.
+# Devuelve: True si el registro es válido
+# o False si incumple alguna regla.
+
 def validar_operacion(unidades, precio, descuento, estado, prometidos):
 
     valido = True
 
     if unidades <= 0:
+
         valido = False
 
     if precio <= 0:
+
         valido = False
 
     if descuento < 0 or descuento > 40:
+
         valido = False
 
     if estado != "Entregado" and estado != "Pendiente" and estado != "Cancelado":
+
         valido = False
 
     if prometidos <= 0:
+
         valido = False
 
     return valido
 
+
+# Función para calcular los valores comerciales.
+# Recibe: unidades, precio y porcentaje de descuento.
+# Devuelve: valor bruto, descuento y valor neto.
 
 def calcular_valores(unidades, precio, descuento):
 
@@ -1164,22 +1423,35 @@ def calcular_valores(unidades, precio, descuento):
     return bruto, valor_descuento, neto
 
 
+# Contadores generales.
+
 recibidos = 0
 validos = 0
 invalidos = 0
+
+# Contadores por estado.
 
 entregados = 0
 pendientes = 0
 cancelados = 0
 
+# Acumuladores de valores.
+
 bruto_global = 0
 descuento_global = 0
 ingreso_efectivo = 0
 
+# Acumulador de unidades efectivamente entregadas.
+
 unidades_entregadas = 0
+
+# Diccionarios para consolidar información
+# por producto y por cliente.
 
 productos_9 = {}
 clientes_9 = {}
+
+# Variables para identificar productos y clientes destacados.
 
 producto_mas_solicitado = ""
 mayor_unidades = 0
@@ -1190,11 +1462,18 @@ mayor_ingreso_producto = 0
 cliente_mayor_ingreso = ""
 mayor_ingreso_cliente = 0
 
+# Lista para guardar clientes con cancelaciones.
+
 clientes_cancelaciones = []
 
+# Indicadores de puntualidad.
+
+entregas_puntuales = 0
 pedidos_tardios = 0
 dias_retraso_total = 0
 
+
+# Recorremos todas las operaciones.
 
 for operacion in operaciones:
 
@@ -1210,6 +1489,8 @@ for operacion in operaciones:
 
     recibidos = recibidos + 1
 
+    # Validamos cada operación mediante la función.
+
     valido = validar_operacion(
         unidades,
         precio,
@@ -1217,6 +1498,9 @@ for operacion in operaciones:
         estado,
         prometidos
     )
+
+    # Si la operación es inválida
+    # solamente aumentamos el contador correspondiente.
 
     if valido == False:
 
@@ -1229,18 +1513,29 @@ for operacion in operaciones:
 
         validos = validos + 1
 
+        # Calculamos los valores comerciales
+        # de cada registro válido.
+
         bruto, valor_descuento, neto = calcular_valores(
             unidades,
             precio,
             descuento
         )
 
+        # El valor bruto y los descuentos consideran
+        # todos los pedidos válidos.
+
         bruto_global = bruto_global + bruto
         descuento_global = descuento_global + valor_descuento
+
+        # Clasificamos cada pedido según su estado.
 
         if estado == "Entregado":
 
             entregados = entregados + 1
+
+            # El ingreso efectivo y las unidades entregadas
+            # solamente consideran los pedidos Entregado.
 
             ingreso_efectivo = ingreso_efectivo + neto
             unidades_entregadas = unidades_entregadas + unidades
@@ -1253,8 +1548,15 @@ for operacion in operaciones:
 
             cancelados = cancelados + 1
 
+            # Guardamos una sola vez cada cliente
+            # que tenga pedidos cancelados.
+
             if cliente not in clientes_cancelaciones:
+
                 clientes_cancelaciones.append(cliente)
+
+
+        # Consolidamos la información por producto.
 
         if producto not in productos_9:
 
@@ -1269,11 +1571,17 @@ for operacion in operaciones:
                 productos_9[producto]["Unidades"] + unidades
             )
 
+        # El ingreso por producto solamente considera
+        # los pedidos Entregado.
+
         if estado == "Entregado":
 
             productos_9[producto]["Ingreso"] = (
                 productos_9[producto]["Ingreso"] + neto
             )
+
+
+        # Consolidamos la información por cliente.
 
         if cliente not in clientes_9:
 
@@ -1288,15 +1596,24 @@ for operacion in operaciones:
                 clientes_9[cliente]["Pedidos"] + 1
             )
 
+        # El ingreso por cliente solamente considera
+        # los pedidos Entregado.
+
         if estado == "Entregado":
 
             clientes_9[cliente]["Ingreso"] = (
                 clientes_9[cliente]["Ingreso"] + neto
             )
 
+
+        # Analizamos la puntualidad únicamente
+        # en los pedidos Entregado.
+
         if estado == "Entregado":
 
             if reales <= prometidos:
+
+                entregas_puntuales = entregas_puntuales + 1
 
                 print(codigo, "entrega puntual")
 
@@ -1307,13 +1624,22 @@ for operacion in operaciones:
                 pedidos_tardios = pedidos_tardios + 1
                 dias_retraso_total = dias_retraso_total + retraso
 
-                print(codigo, "entrega tardía:", retraso, "días")
+                print(
+                    codigo,
+                    "entrega tardía:",
+                    retraso,
+                    "días"
+                )
 
+
+# ANÁLISIS POR PRODUCTO
 
 print()
 print("ANÁLISIS POR PRODUCTO")
 
 ingreso_productos = 0
+
+# Recorremos el consolidado por producto.
 
 for producto in productos_9:
 
@@ -1327,10 +1653,14 @@ for producto in productos_9:
 
     ingreso_productos = ingreso_productos + ingreso
 
+    # Identificamos el producto más solicitado.
+
     if unidades > mayor_unidades:
 
         mayor_unidades = unidades
         producto_mas_solicitado = producto
+
+    # Identificamos el producto con mayor ingreso.
 
     if ingreso > mayor_ingreso_producto:
 
@@ -1338,10 +1668,14 @@ for producto in productos_9:
         producto_mayor_ingreso = producto
 
 
+# ANÁLISIS POR CLIENTE
+
 print()
 print("ANÁLISIS POR CLIENTE")
 
 ingreso_clientes = 0
+
+# Recorremos el consolidado por cliente.
 
 for cliente in clientes_9:
 
@@ -1355,15 +1689,18 @@ for cliente in clientes_9:
 
     ingreso_clientes = ingreso_clientes + ingreso
 
+    # Identificamos el cliente con mayor ingreso efectivo.
+
     if ingreso > mayor_ingreso_cliente:
 
         mayor_ingreso_cliente = ingreso
         cliente_mayor_ingreso = cliente
 
-        
+
 #---------------------------------------------------------------------------------------------------------------------
+# RESULTADOS FINALES - PROBLEMA 9
 #---------------------------------------------------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------------------------
+
 print()
 print("\033[93m" + '=' * 120 + "\033[0m")
 print("RESULTADOS FINALES - PROBLEMA 9")
@@ -1397,6 +1734,9 @@ print("Cliente de mayor ingreso:", cliente_mayor_ingreso)
 print()
 print("Clientes con cancelaciones:", clientes_cancelaciones)
 
+# Calculamos el promedio de días de retraso
+# solamente entre las entregas tardías.
+
 if pedidos_tardios > 0:
 
     promedio_retraso = dias_retraso_total / pedidos_tardios
@@ -1405,11 +1745,18 @@ else:
 
     promedio_retraso = 0
 
+print("Entregas puntuales:", entregas_puntuales)
 print("Pedidos tardíos:", pedidos_tardios)
 print("Promedio días de retraso:", promedio_retraso)
 
+
+# VERIFICACIONES
+
 print()
 print("VERIFICACIONES")
+
+# Verificación 1:
+# válidos + inválidos debe ser igual a recibidos.
 
 if validos + invalidos == recibidos:
 
@@ -1420,6 +1767,10 @@ else:
     print("1. Válidos + inválidos = recibidos: INCORRECTO")
 
 
+# Verificación 2:
+# Entregado + Pendiente + Cancelado
+# debe ser igual al número de registros válidos.
+
 if entregados + pendientes + cancelados == validos:
 
     print("2. Estados = válidos: CORRECTO")
@@ -1428,6 +1779,10 @@ else:
 
     print("2. Estados = válidos: INCORRECTO")
 
+
+# Verificación 3:
+# ingreso por productos, ingreso por clientes
+# e ingreso efectivo global deben coincidir.
 
 print("Ingreso por productos:", ingreso_productos)
 print("Ingreso por clientes:", ingreso_clientes)
@@ -1441,9 +1796,9 @@ else:
 
     print("3. Ingresos coinciden: INCORRECTO")
 
+
 print('*' * 120)
 
 print("Fin, gracias.")
 
 print('*' * 120)
-   
