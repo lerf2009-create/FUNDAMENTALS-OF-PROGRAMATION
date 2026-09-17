@@ -668,14 +668,17 @@ ventas_invalidas = 0
 total_bruto = 0
 total_descuento = 0
 total_neto = 0
-
+#En esta parte se dejan listas las variables que se van a usar durante el programa. Algunas sirven para contar cuántas ventas se revisan,
+#cuántas son válidas y cuántas no. Otras sirven para ir sumando el valor bruto, el descuento y el ingreso neto. También se crea el diccionario 
+#productos, que más adelante nos ayudará a guardar la información agrupada de cada producto.
 # Creamos un diccionario vacío para consolidar la información
 # de cada producto. Los productos se incorporan cuando aparecen.
 
 productos = {}
 
 # Recorremos cada venta de la lista.
-
+#Después se utiliza un ciclo for para revisar una por una las ventas que están dentro de la lista. Esto permite que el programa no trabaje 
+#todas las ventas al mismo tiempo, sino que analice cada registro por separado.
 for venta in ventas_6:
 
     producto = venta[0]
@@ -688,13 +691,17 @@ for venta in ventas_6:
 
     # Una venta es inválida si las unidades son menores o iguales a cero,
     # el precio es menor o igual a cero o el descuento está fuera de 0 a 40.
+    #Luego el programa revisa si la venta tiene datos correctos. Para que una venta sea válida, las unidades y el precio deben ser mayores que cero, y el descuento debe estar entre 0 y 40. Si no cumple alguna de estas condiciones, se considera inválida, se cuenta como venta inválida y no se hacen cálculos con ella.
+    #De cada venta se sacan los datos necesarios: el producto, la categoría, las unidades vendidas, el precio y el descuento. Estos datos se toman de acuerdo con la posición que ocupan dentro de cada lista. También se suma uno al contador de ventas recibidas, porque cada vez que el ciclo pasa por una venta significa que esa venta ya fue revisada.
 
     if unidades <= 0 or precio <= 0 or descuento < 0 or descuento > 40:
 
         ventas_invalidas = ventas_invalidas + 1
 
     else:
-
+        #Si la venta sí cumple las condiciones, se cuenta como una venta válida. En ese caso, el programa calcula primero el valor bruto 
+        #multiplicando las unidades por el precio. Luego calcula cuánto vale el descuento y finalmente obtiene el valor neto, que es lo que 
+        #queda después de restar el descuento.
         ventas_validas = ventas_validas + 1
 
         # Calculamos valor bruto, descuento y valor neto.
@@ -708,8 +715,9 @@ for venta in ventas_6:
         total_bruto = total_bruto + bruto
         total_descuento = total_descuento + valor_descuento
         total_neto = total_neto + neto
-
-        # Si el producto aparece por primera vez lo agregamos al diccionario.
+        #Después de calcular los valores de una venta válida, esos resultados se van sumando a los totales generales. Así el programa 
+        #puede ir acumulando poco a poco el total bruto, el total descontado y el total neto de todas las ventas que sí fueron aceptadas.
+        #Si el producto aparece por primera vez lo agregamos al diccionario.
 
         if producto not in productos:
 
@@ -719,7 +727,8 @@ for venta in ventas_6:
                 "Ingreso": neto,
                 "Operaciones": 1
             }
-
+        #Más adelante, el programa revisa si el producto de la venta ya está guardado en el diccionario. Si no está, se crea por primera vez con su categoría, sus unidades, su ingreso neto y una operación. Esto sirve para empezar a guardar la información de ese producto.
+        #Si el producto ya existía en el diccionario, entonces no se vuelve a crear. En ese caso solo se actualizan sus datos, sumando las nuevas unidades, el nuevo ingreso neto y aumentando en uno la cantidad de operaciones realizadas para ese producto.
         else:
 
             # Si el producto ya existe acumulamos unidades,
@@ -742,7 +751,8 @@ print("Ingreso neto:", total_neto)
 
 print()
 print("CONSOLIDADO POR PRODUCTO")
-
+#Cuando termina el recorrido de todas las ventas, el programa muestra un resumen general. En ese resumen aparecen las ventas recibidas, las válidas, las inválidas, el valor bruto total, el descuento total y el ingreso neto total. Esto permite ver el resultado general del proceso.
+#Después se crean algunas variables adicionales para analizar los productos. Estas variables sirven para guardar cuál fue el producto con más unidades vendidas, cuál generó mayor ingreso y cuánto ingreso se acumula al sumar todos los productos del consolidado.
 # Variables para determinar el producto con más unidades
 # y el producto con mayor ingreso.
 
@@ -759,7 +769,8 @@ ingreso_consolidado = 0
 # Recorremos el diccionario de productos.
 
 for producto in productos:
-
+    #Luego se usa otro ciclo for, pero esta vez para recorrer los productos que quedaron guardados en el diccionario. Por cada producto se 
+    #toman sus unidades, su ingreso y sus operaciones, y se muestran estos datos como parte del consolidado.
     unidades = productos[producto]["Unidades"]
     ingreso = productos[producto]["Ingreso"]
     operaciones = productos[producto]["Operaciones"]
@@ -786,7 +797,9 @@ for producto in productos:
 
         mayor_ingreso = ingreso
         producto_mayor_ingreso = producto
-
+    #Mientras se revisa cada producto, el programa también compara sus unidades y su ingreso con los mayores valores encontrados hasta ese 
+    #momento. Si encuentra un producto con más unidades o con mayor ingreso, actualiza la información para dejar guardado ese producto como 
+    #el más destacado.
     # Calculamos la participación de cada producto
     # dentro del ingreso neto total.
 
@@ -797,7 +810,9 @@ for producto in productos:
     else:
 
         participacion = 0
-
+    #También se calcula qué porcentaje representa cada producto dentro del ingreso neto total. Para eso se divide el ingreso 
+    #del producto entre el total neto y se multiplica por 100. Si el total neto fuera cero, el programa deja la participación 
+    #en cero para evitar un error en la división.
     print("Participación en ingreso:", participacion, "%")
 
 
@@ -818,7 +833,9 @@ if total_neto == ingreso_consolidado:
 else:
 
     print("VERIFICACIÓN INCORRECTA")
-
+    #Al final, el programa compara el ingreso neto total con el ingreso consolidado por producto. Esta comparación sirve para confirmar 
+    #que los datos agrupados en el diccionario coinciden con los totales generales. Si los dos valores son iguales, la verificación sale 
+    #correcta; si no, significa que hubo alguna diferencia en la acumulación.
 
 #---------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------
@@ -1046,7 +1063,6 @@ print("\033[93m" + '=' * 120 + "\033[0m")
 # al porcentaje de entregas a tiempo.
 # Recibe: porcentaje de puntualidad del proveedor.
 # Devuelve: 30, 20, 10 o 0 puntos.
-
 #Para el punto 8 se consultaron otras fuentes para poder obtener orientación de su solución y se utilizó "def" para poder llevar 
 #a cabo el ejercicio aunque no se ha visto dicho concepto en las sesiones presenciales.
 #Se crean las funciones necesarias para crear las clasificaciones de clientes, la escala de puntos, clasificación de proveedor.
