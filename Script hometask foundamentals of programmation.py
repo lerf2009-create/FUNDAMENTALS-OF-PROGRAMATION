@@ -313,7 +313,10 @@ print("PROBLEMA 3 - CONTROL DE INVENTARIO")
 print("\033[93m" + '=' * 120 + "\033[0m")
 
 #Creamos las variables y listas de datos necesarias:
+print('Se definen las variables para realizar las demás pruebas del punto 3 pero se dejan comentadas para no afectar al código, ' \
+'para ejecutar cada prueba se deben dejar comentadas las otras dos.')
 
+#Prueba 1. ok
 inventario_inicial = 50
 
 movimientos = [
@@ -322,6 +325,26 @@ movimientos = [
     ["Entrada", 15],
     ["Salida", 10]
 ]
+
+#Prueba 2. ok
+#inventario_inicial = 20
+
+#movimientos = [
+#    ["Entrada", 10],
+#    ["Salida", 8],
+#    ["Entrada", 0],
+#    ["Salida", 5]
+#]
+
+#Prueba 3. 
+#inventario_inicial = 12
+
+#movimientos = [
+#    ["Salida", 5],
+#    ["Venta", 3],
+#    ["Entrada", -2],
+#    ["Salida", 10]
+#]
 
 inventario = inventario_inicial
 #Definimos los contadores:
@@ -546,6 +569,7 @@ print("\033[93m" + '=' * 120 + "\033[0m")
 print("PROBLEMA 5 - ANÁLISIS DE COMENTARIOS")
 print("\033[93m" + '=' * 120 + "\033[0m")
 #Creamos las listas con las palabras clasificadas en registros de palabras favorables y desfavorables, así mismo la lista de comentarios.
+#La limitación es que no analiza el contenido implícito en los comentarios completos ni analiza el contexto, solo define favorabilidad o desfavorabilidad según frecuencias.
 favorables = [
     "excelente",
     "rápido",
